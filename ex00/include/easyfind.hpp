@@ -21,10 +21,17 @@
 #include <set>
 #include "Except.hpp"
 
+# define BLUE "\033[1;34m"
+# define RED "\033[1;31m"
+# define MARRON "\033[1;33m"
+# define GREEN "\033[1;32m"
+# define MAGENTA "\033[1;35m"
+# define NEUTRAL "\033[0m"
+
 template <typename T>
 typename T::const_iterator easyfind(T & container, int & val)
 {
-	typename T::iterator it;
+	typename T::const_iterator it;
 
 	it = find(container.begin(), container.end(), val);
 

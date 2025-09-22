@@ -94,7 +94,7 @@ void test_set(void)
 	s.insert(2);
 
 	int find = 2;
-	std::cout << "Deque has 3 elements: {0, 1, 2}\n";
+	std::cout << "Set has 3 elements: {0, 1, 2}\n";
 	std::cout << "Number to find: " << find << '\n';
 
 	try
