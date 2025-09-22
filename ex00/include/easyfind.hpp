@@ -29,7 +29,7 @@
 # define NEUTRAL "\033[0m"
 
 template <typename T>
-typename T::const_iterator easyfind(T & container, int & val)
+int easyfind(T & container, int & val)
 {
 	typename T::const_iterator it;
 

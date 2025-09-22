@@ -1,4 +1,4 @@
-NAME = span
+NAME = mutanStack
 
 #	Folders
 SRC_DIR = ./src/
