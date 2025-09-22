@@ -17,22 +17,29 @@
 template <typename T>
 class MutantStack : public std::stack<T>
 {
-    MutantStack();
-    MutantStack(const MutantStack & m);
-    ~MutantStack();
-    MutantStack & operator=(const MutantStack & m);
+    public:
+        MutantStack();
+        MutantStack(const MutantStack & m);
+        ~MutantStack();
+        MutantStack & operator=(const MutantStack & m);
 
-    typedef typename std::deque<T>::iterator iterator;
-    typedef typename std::deque<T>::const_iterator const_iterator;
+        typedef typename std::stack<T>::iterator iterator;
+        typedef typename std::stack<T>::const_iterator const_iterator;
+        typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
+        typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
 
-    iterator begin();
-    iterator end();
+        iterator begin();
+        iterator end();
+        iterator rbegin();
+        iterator rend();
 
-    const_iterator begin() const;
-    const_iterator end() const;
+        const_iterator begin() const;
+        const_iterator end() const;
+        const_iterator rbegin() const;
+        const_iterator rend() const;
 
-    template <typename T>
-    int  easyfind(const T & container, int & val);
-}
+        template <typename T>
+        int  easyfind(const T & container, int & val);
+};
 
 #endif

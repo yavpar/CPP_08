@@ -5,7 +5,7 @@ MutantStack<T>::MutantStack() : std::stack<T>()
 {}
 
 template <typename T>
-MutantStack<T>::MutantStack(const MutantStack & m)
+MutantStack<T>::MutantStack(const MutantStack & m) : std::stack<T>(m)
 {
     *this = m;
 }
@@ -25,10 +25,48 @@ typename MutantStack<T>::iterator MutantStack<T>::begin()
 {
     return (this->c.begin());
 }
-    // iterator end()
 
-    // const_iterator begin() const
-    // const_iterator end() const
+template <typename T>
+typename MutantStack<T>::iterator MutantStack<T>::end()
+{
+    return (this->c.end());
+}
+
+template <typename T>
+typename MutantStack<T>::iterator MutantStack<T>::rbegin()
+{
+    return c.rbegin();
+}
+
+template <typename T>
+typename MutantStack<T>::iterator MutantStack<T>::rend()
+{
+    return c.rend();
+}
+
+template <typename T>
+typename MutantStack<T>::const_iterator MutantStack<T>::begin() const
+{
+    return c.begin();
+}
+
+template <typename T>
+typename MutantStack<T>::const_iterator MutantStack<T>::end() const
+{
+    return c.end();
+}
+
+template <typename T>
+typename MutantStack<T>::const_iterator MutantStack<T>::rbegin() const
+{
+    return c.rbegin();
+}
+
+template <typename T>
+typename MutantStack<T>::const_iterator MutantStack<T>::rend() const
+{
+    return c.rend();
+}
 
 template <typename T>
 int  easyfind(const T & container, int & val)
@@ -37,7 +75,7 @@ int  easyfind(const T & container, int & val)
 	it = find(container.begin(), container.end(), val);
 
 	if (it == container.end())
-		throw ValueNotFound();
-	
+		throw std::runtime_error("Value Not Found");
+
 	return (*it);
 }
