@@ -6,7 +6,7 @@
 /*   By: yparthen <yparthen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 20:25:48 by yparthen          #+#    #+#             */
-/*   Updated: 2025/06/13 18:45:47 by yparthen         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:48:13 by yparthen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define NEUTRAL "\033[0m"
 
 template <typename T>
-int easyfind(T & container, int & val)
+typename T::const_iterator easyfind(T & container, int & val)
 {
 	typename T::const_iterator it;
 

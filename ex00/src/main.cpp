@@ -1,120 +1,99 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yparthen <yparthen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 21:29:03 by yparthen          #+#    #+#             */
-/*   Updated: 2025/06/13 18:40:44 by yparthen         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <iostream>
+#include <vector>
+#include <list>
+#include <deque>
+#include <set>
+#include <map>
 
 #include "easyfind.hpp"
+#include "Except.hpp"
 
-void test_vector(void)
+#define N 5 
+
+void testContainer(std::string name)
 {
-	std::cout << "--- TESTING VECTOR CONTAINER ---\n\n";
-	std::vector<int> v;
+	std::cout << MARRON << "\n--- Testing: " << RED << name << " ---\n" << NEUTRAL;
+}
 
-	v.push_back(0);
-	v.push_back(1);
-	v.push_back(2);
+template <typename A>
+void showType(A & a,const std::string & name)
+{
+	testContainer(name);
 
-	int find = 2;
-	std::cout << "Vector has 3 elements: {0, 1, 2}\n";
-	std::cout << "Number to find: " << find << '\n';
-	try
-	{
-		std::vector<int>::const_iterator it = easyfind(v, find);
-		std::cout << "Found in vector: " << *it << '\n';
-	}
-	catch (const std::exception & e)
-	{
-		std::cout << e.what() << ": " << find << '\n';
-	}
+	for (std::size_t i = 0; i < N; i++)
+		a.push_back(i * 2 - (i * 4 / 2 == 0));
+
+	typename A::const_iterator it_b = a.begin();
+	typename A::const_iterator it_e = a.end();
+
+	std::cout << name << ":\n";
+	for (; it_b != it_e; it_b++)
+		std::cout << "<" << *it_b << ">\n";
 
 }
 
-void test_list(void)
+template <typename B>
+void test(B const & b, int ffind)
 {
-	std::cout << "--- TESTING LIST CONTAINER ---\n\n";
-
-	std::list<int> l;
-	l.push_back(0);
-	l.push_back(1);
-	l.push_back(2);
-
-	int find = 8;
-	std::cout << "List has 3 elements: {0, 1, 2}\n";
-	std::cout << "Number to find: " << find << '\n';
-
-	try
-	{
-		std::list<int>::const_iterator it = easyfind(l, find);
-		std::cout << "Found in list: " << *it << '\n';
+	try 
+	{ 
+		typename B::const_iterator found = easyfind(b, ffind); 
+		std::cout << "Value found = " << GREEN << *found << '\n' << NEUTRAL; 
 	}
 	catch (std::exception & e)
-	{
-		std::cout << e.what() << ": " << find << '\n';
-	}
+		{ std::cerr << RED << "Oops: " << e.what() << '\n' << NEUTRAL;}
+
 }
 
-void test_deque(void)
+int getValue(void)
 {
-	std::cout << "--- TESTING DEQUE CONTAINER ---\n\n";
+	int num;
+	std::cin >> num;
 
-	std::deque<int> d;
-	d.push_back(0);
-	d.push_back(1);
-	d.push_back(2);
-
-	int find = 2;
-	std::cout << "Deque has 3 elements: {0, 1, 2}\n";
-	std::cout << "Number to find: " << find << '\n';
-
-	try
+	if (std::cin.fail())
 	{
-		std::deque<int>::const_iterator it = easyfind(d, find);
-		std::cout << "Found in deque: " << *it << '\n';
+		std::cerr << RED << "Invalid entry. By default: 42\n" << NEUTRAL;
+		return (42);
 	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << ": " << find << '\n';
-	}
+	return num;
 }
 
-void test_set(void)
+void showTypes(std::set<int> s)
 {
-	std::cout << "--- TESTING SET CONTAINER ---\n\n";
+	testContainer("Set");
+	s.insert(3);
+	s.insert(6);
+	s.insert(42);
+	s.insert(9);
+	s.insert(78);
 
-	std::set<int> s;
-	s.insert(0);
-	s.insert(1);
-	s.insert(2);
+	std::set<int>::const_iterator it_b = s.begin();
+	std::set<int>::const_iterator it_e = s.end();
 
-	int find = 2;
-	std::cout << "Set has 3 elements: {0, 1, 2}\n";
-	std::cout << "Number to find: " << find << '\n';
-
-	try
-	{
-		std::set<int>::const_iterator it = easyfind(s, find);
-		std::cout << "Found in set: " << *it << '\n';
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << ": " << find << '\n';
-	}
+	std::cout << "Set:\n";
+	for (; it_b != it_e; it_b++)
+		std::cout << "<" << *it_b << ">\n";
 }
 
 int main(void)
 {
-	test_vector();
-	std::cout << std::endl;
-	test_list();
-	std::cout << std::endl;
-	test_deque();
-	std::cout << std::endl;
-	test_set();
+	std::vector<int> v;
+	std::list<int> l;
+	std::set<int> s;
+	std::deque<int> d;
+
+	showType(v, "Vector");
+	showType(l, "List");
+	showType(d, "Deque");
+	showTypes(s);
+
+	int ffind = getValue();
+	
+	test(v, ffind);
+	test(l, ffind);
+	test(d, ffind);
+	test(s, ffind);
+
+	return 0;
 }
+
