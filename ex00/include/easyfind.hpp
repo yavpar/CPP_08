@@ -33,7 +33,7 @@ typename T::const_iterator easyfind(T & container, int & val)
 {
 	typename T::const_iterator it;
 
-	it = find(container.begin(), container.end(), val);
+	it = std::find(container.begin(), container.end(), val);
 
 	if (it == container.end())
 		throw ValueNotFound();
