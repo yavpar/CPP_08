@@ -12,38 +12,52 @@
 
 #include "Span.hpp"
 
-Span::Span(int N) : _max_size(N)
+Span::Span() : _v(0), _capacity(0) {}
+
+Span::Span(const Span & copy) : _v(0), _capacity(copy._capacity) {*this = copy;}
+
+Span::Span(int N) : _capacity(N)
 {
 	if (N < 0)
 		throw Span::SpanNegatifN();
 	if (static_cast<unsigned long>(N) > static_cast<unsigned long>(UINT_MAX))
 		throw Span::SpanOverflow();
-
-	this->v.reserve(N);
+//    this->_v.resize(N);
 }
 
 Span::~Span() {}
 
+Span Span::operator=(const Span & copy)
+{
+    if (this != &copy)
+    {
+        this->_v = copy._v;
+        this->_capacity = copy._capacity;
+    }
+
+    return (*this);
+}
+
 void Span::addNumber(int number)
 {
-	if (this->v.size() >= this->_max_size)
+	if (this->_v.size() >= this->_capacity)
 		throw Span::SpanFull();
 
-	this->v.push_back(number);
+	this->_v.push_back(number);
 }
 
 int Span::shortestSpan()
 {
-	if (v.size() < 2)
-		throw std::runtime_error("Not enough number to find in the vector");
+	if (this->_v.size() < 2)
+		throw std::runtime_error("Not enough numbers to find in the vector");
 	
 	int shortest = INT_MAX;
 	int temp;
-	std::vector<int> vt = v;
+	std::vector<int> vt = this->_v;
 
 	std::sort(vt.begin(), vt.end());
 
-	for (std::size_t i = 0; i < v.size() - 1; i++)
+	for (std::size_t i = 0; i < this->_v.size() - 1; i++)
 	{
 		temp = abs(vt[i + 1] - vt[i]);
 		if (temp < shortest)
@@ -54,46 +68,25 @@ int Span::shortestSpan()
 
 int Span::largestSpan()
 {
-	if (v.size() < 2)
+	if (this->_v.size() < 2)
 		throw std::runtime_error("Not enough number to find in the vector");
 	
-	int largest = INT_MIN;
-
-	std::vector<int> vt = v;
+	std::vector<int> vt = this->_v;
 	std::sort(vt.begin(), vt.end());
 
 	std::vector<int>::const_iterator min = std::min_element(vt.begin(), vt.end());
 	std::vector<int>::const_iterator max = std::max_element(vt.begin(), vt.end());
 
-	largest = abs(*max - *min);
+	int largest = abs(*max - *min);
 
 	return largest;
-}
-
-void Span::fillSpan()
-{
-	v.clear();
-	std::vector<int> pool;
-	
-	for (std::size_t i = 0; i < this->_max_size * 10; i++)
-	{
-		if (i > 2 && (i % 3 == 0))
-			pool.push_back(-i);
-		else
-			pool.push_back(i);
-	}
-
-	std::srand(std::time(NULL));
-	std::random_shuffle(pool.begin(), pool.end());
-
-	for (std::size_t i = 0; i < this->_max_size; i++)
-		addNumber(pool[i]);
 }
 
 void Span::printSpan() const
 {
 	std::cout << BLUE << "\n\nElements in vector:\n" << NEUTRAL;
-	for (std::size_t i = 0; i < v.size(); i++)
-		std::cout << MAGENTA << v[i] << '\n';
+	for (std::size_t i = 0; i < this->_v.size(); i++)
+		std::cout << MAGENTA << this->_v[i] << '\n';
 	std::cout << '\n' << NEUTRAL;
 }
+

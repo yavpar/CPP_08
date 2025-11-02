@@ -3,17 +3,14 @@
 int main(void)
 {
     try {
-        Span s = Span(3);
-        //s.fillSpan();
-        // s.addNumber(-9);
-        std::vector<int> v;
-        
-        for (std::size_t i = 0; i < 5; ++i)
-            v.push_back(i * 2);
-
-        s.addNumber(v.begin(), v.end());
+        Span s = Span(1000);
+        std::vector<int> v(5);
+       
+        std::cout << MAGENTA << "Antes de AddMulti" << NEUTRAL << '\n';
+        s.AddMulti(v.begin(), v.end());
+        std::cout << MAGENTA << "Despues de AddMulti" << NEUTRAL << '\n';
         s.printSpan();
-        std::cout << BLUE << "Largest distance: " << GREEN << s.largestSpan() << NEUTRAL << '\n';
+        std::cout << BLUE << "\n\nLargest distance: " << GREEN << s.largestSpan() << NEUTRAL << '\n';
         std::cout << BLUE << "Shorest distance: " << GREEN << s.shortestSpan() << NEUTRAL << '\n';
     }
     catch (const std::exception & e)
