@@ -1,134 +1,78 @@
 #include "MutantStack.hpp"
 #include <iostream>
+#include <list>
+# define BLUE "\033[1;34m"
+# define RED "\033[1;31m"
+# define MARRON "\033[1;33m"
+# define GREEN "\033[1;32m"
+# define MAGENTA "\033[1;35m"
+# define NEUTRAL "\033[0m"
+#define MAX_ELEM 10
 
-/*
-int main()
+void test_main()
 {
-    MutantStack<int> mstack;
-    mstack.push(0);
-    mstack.push(1);
-    std::cout << "first element: " << mstack.top() << std::endl;
-    mstack.pop();
-    std::cout << "pop() realice.\nsize: " << mstack.size() << std::endl;
-    mstack.push(2); mstack.push(3); mstack.push(4); //[...] mstack.push(0);
-    MutantStack<int>::iterator it = mstack.begin(); MutantStack<int>::iterator ite = mstack.end();
+    MutantStack<int> mStack;
+    mStack.push(0);
+    mStack.push(1);
+    std::cout << "first element: " << mStack.top() << std::endl;
+    mStack.pop();
+    std::cout << "pop() realice.\nsize: " << mStack.size() << std::endl;
+    mStack.push(2); mStack.push(3); mStack.push(4); //[...] mStack.push(0);
+    MutantStack<int>::iterator it = mStack.begin(); MutantStack<int>::iterator ite = mStack.end();
     ++it;
     --it;
     while (it != ite) {
         std::cout << *it << std::endl;
     ++it; }
-    std::stack<int> s(mstack); return 0;
-}*/
-
-// ----------------------------------------------------
-// Test 1: iteradores normales (iterator)
-// ----------------------------------------------------
-void test_iterators()
-{
-    std::cout << "\n=== Test 1: iterator ===" << std::endl;
-    MutantStack<int> mstack;
-    for (int i = 0; i < 5; ++i)
-        mstack.push(i * 10);
-
-    for (MutantStack<int>::iterator it = mstack.begin(); it != mstack.end(); ++it)
-        std::cout << *it << " ";
-    std::cout << std::endl;
+    std::stack<int> s(mStack);
 }
 
-// ----------------------------------------------------
-// Test 2: const_iterator
-// ----------------------------------------------------
-void test_const_iterators()
+void test_list()
 {
-    std::cout << "\n=== Test 2: const_iterator ===" << std::endl;
-    MutantStack<int> mstack;
-    for (int i = 1; i <= 5; ++i)
-        mstack.push(i * 10);
-
-    const MutantStack<int> const_stack = mstack;
-
-    for (MutantStack<int>::const_iterator it = const_stack.begin(); it != const_stack.end(); ++it)
-        std::cout << *it << " ";
-    std::cout << std::endl;
+    std::list<int> mStack;
+    mStack.push_back(0);
+    mStack.push_back(1);
+    std::cout << "first element: " << mStack.back() << std::endl;
+    mStack.pop_back();
+    std::cout << "pop_back() done!.\nsize: " << mStack.size() << std::endl;
+    mStack.push_back(2); mStack.push_back(3); mStack.push_back(4); //[...] mStack.push(0);
+    std::list<int>::iterator it = mStack.begin(); std::list<int>::iterator ite = mStack.end();
+    ++it;
+    --it;
+    while (it != ite) {
+        std::cout << *it << std::endl;
+    ++it; }
+    std::stack<int, std::list<int> > s(mStack); 
 }
 
-// ----------------------------------------------------
-// Test 3: reverse_iterator
-// ----------------------------------------------------
-void test_reverse_iterators()
-{
-    std::cout << "\n=== Test 3: reverse_iterator ===" << std::endl;
-    MutantStack<int> mstack;
-    for (int i = 0; i < 5; ++i)
-        mstack.push(i * 10);
-
-    for (MutantStack<int>::reverse_iterator it = mstack.rbegin(); it != mstack.rend(); ++it)
-        std::cout << *it << " ";
-    std::cout << std::endl;
-}
-
-// ----------------------------------------------------
-// Test 4: const_reverse_iterator
-// ----------------------------------------------------
-void test_const_reverse_iterators()
-{
-    std::cout << "\n=== Test 4: const_reverse_iterator ===" << std::endl;
-    MutantStack<int> mstack;
-    for (int i = 1; i <= 5; ++i)
-        mstack.push(i * 10);
-
-    const MutantStack<int> const_stack = mstack;
-
-    for (MutantStack<int>::const_reverse_iterator it = const_stack.rbegin(); it != const_stack.rend(); ++it)
-        std::cout << *it << " ";
-    std::cout << std::endl;
-}
-
-// ----------------------------------------------------
-// Test 5: easyfind()
-// ----------------------------------------------------
-/*
-void test_easyfind()
-{
-    std::cout << "\n=== Test 5: easyfind() ===" << std::endl;
-    MutantStack<int> mstack;
-    for (int i = 1; i <= 5; ++i)
-        mstack.push(i * 3);
-
-    int value = 9;
-
-    try
-    {
-        int found = easyfind(mstack, value);
-        std::cout << "Value " << value << " found: " << found << std::endl;
-    }
-    catch (std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
-
-    value = 7;
-    try
-    {
-        int found = easyfind(mstack, value);
-        std::cout << "Value " << value << " found: " << found << std::endl;
-    }
-    catch (std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
-}
-*/
-// ----------------------------------------------------
-// MAIN
-// ----------------------------------------------------
 int main()
 {
-    test_iterators();
-    test_const_iterators();
-    test_reverse_iterators();
-    test_const_reverse_iterators();
-//    test_easyfind();
+	std::cout << MAGENTA << "\n\t====== Tests with iterators ======" << NEUTRAL << '\n';
+
+    MutantStack<int> mStack;
+    for (int i = 0; i < MAX_ELEM; ++i)
+        mStack.push(i * 10);
+
+    std::cout << MARRON << "\n=== with const_iterator ===" << NEUTRAL << '\n';;
+    MutantStack<int>::const_iterator it = mStack.begin();
+	std::cout << GREEN;
+    for (; it != mStack.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << NEUTRAL << '\n'; 
+
+    std::cout << MARRON << "\n=== with const_reverse_iterator ===" << NEUTRAL << '\n';;
+	std::cout << GREEN;
+	MutantStack<int>::const_reverse_iterator revIt = mStack.rbegin();
+	for ( ; revIt != mStack.rend(); ++revIt)
+		std::cout << *revIt << " ";
+    std::cout << NEUTRAL << '\n'; 
+
+
+    std::cout << MARRON << "\n=== with Main ===" << NEUTRAL << '\n';
+	test_main();
+
+    std::cout << MARRON << "\n=== with List ===" << NEUTRAL << '\n';
+	test_list();
     return 0;
 }
 
