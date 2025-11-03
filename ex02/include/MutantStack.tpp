@@ -18,6 +18,7 @@ MutantStack<T> & MutantStack<T>::operator=(const MutantStack & m)
 {
     if (this != &m)
         std::stack<T>::operator=(m);
+    return *this;
 }
 
 template <typename T>
@@ -33,45 +34,45 @@ typename MutantStack<T>::iterator MutantStack<T>::end()
 }
 
 template <typename T>
-typename MutantStack<T>::iterator MutantStack<T>::rbegin()
-{
-    return c.rbegin();
-}
-
-template <typename T>
-typename MutantStack<T>::iterator MutantStack<T>::rend()
-{
-    return c.rend();
-}
-
-template <typename T>
 typename MutantStack<T>::const_iterator MutantStack<T>::begin() const
 {
-    return c.begin();
+    return this->c.begin();
 }
 
 template <typename T>
 typename MutantStack<T>::const_iterator MutantStack<T>::end() const
 {
-    return c.end();
+    return this->c.end();
 }
 
 template <typename T>
-typename MutantStack<T>::const_iterator MutantStack<T>::rbegin() const
+typename MutantStack<T>::reverse_iterator MutantStack<T>::rbegin()
 {
-    return c.rbegin();
+    return this->c.rbegin();
 }
 
 template <typename T>
-typename MutantStack<T>::const_iterator MutantStack<T>::rend() const
+typename MutantStack<T>::reverse_iterator MutantStack<T>::rend()
 {
-    return c.rend();
+    return this->c.rend();
 }
 
 template <typename T>
-int  easyfind(const T & container, int & val)
+typename MutantStack<T>::const_reverse_iterator MutantStack<T>::rbegin() const
 {
-	typename T::const_terator it;
+    return this->c.rbegin();
+}
+
+template <typename T>
+typename MutantStack<T>::const_reverse_iterator MutantStack<T>::rend() const
+{
+    return this->c.rend();
+}
+/*
+template <typename A>
+int easyfind(const A & container, int & val)
+{
+	typedef typename A::iterator it;
 	it = find(container.begin(), container.end(), val);
 
 	if (it == container.end())
@@ -79,3 +80,4 @@ int  easyfind(const T & container, int & val)
 
 	return (*it);
 }
+*/

@@ -23,23 +23,26 @@ class MutantStack : public std::stack<T>
         ~MutantStack();
         MutantStack & operator=(const MutantStack & m);
 
-        typedef typename std::stack<T>::iterator iterator;
-        typedef typename std::stack<T>::const_iterator const_iterator;
+        typedef typename std::stack<T>::container_type::iterator iterator;
+        typedef typename std::stack<T>::container_type::const_iterator const_iterator;
         typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
         typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
 
         iterator begin();
         iterator end();
-        iterator rbegin();
-        iterator rend();
-
         const_iterator begin() const;
         const_iterator end() const;
-        const_iterator rbegin() const;
-        const_iterator rend() const;
 
-        template <typename T>
-        int  easyfind(const T & container, int & val);
+        reverse_iterator rbegin();
+        reverse_iterator rend();
+        const_reverse_iterator rbegin() const;
+        const_reverse_iterator rend() const;
+
 };
 
+/*
+template <typename A>
+int  easyfind(const A & container, int & val);
+*/
+#include "MutantStack.tpp"
 #endif
