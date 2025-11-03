@@ -22,7 +22,6 @@ Span::Span(int N) : _capacity(N)
 		throw Span::SpanNegatifN();
 	if (static_cast<unsigned long>(N) > static_cast<unsigned long>(UINT_MAX))
 		throw Span::SpanOverflow();
-//    this->_v.resize(N);
 }
 
 Span::~Span() {}
@@ -40,6 +39,9 @@ Span Span::operator=(const Span & copy)
 
 void Span::addNumber(int number)
 {
+    if (this->_capacity == 0)
+        throw Span::SpanEmpty();
+
 	if (this->_v.size() >= this->_capacity)
 		throw Span::SpanFull();
 
@@ -49,7 +51,7 @@ void Span::addNumber(int number)
 int Span::shortestSpan()
 {
 	if (this->_v.size() < 2)
-		throw std::runtime_error("Not enough numbers to find in the vector");
+		throw Span::SpanEmpty();
 	
 	int shortest = INT_MAX;
 	int temp;
@@ -69,7 +71,7 @@ int Span::shortestSpan()
 int Span::largestSpan()
 {
 	if (this->_v.size() < 2)
-		throw std::runtime_error("Not enough number to find in the vector");
+		throw Span::SpanEmpty();
 	
 	std::vector<int> vt = this->_v;
 	std::sort(vt.begin(), vt.end());
@@ -84,7 +86,7 @@ int Span::largestSpan()
 
 void Span::printSpan() const
 {
-	std::cout << BLUE << "\n\nElements in vector:\n" << NEUTRAL;
+	std::cout << BLUE << "\nElements in vector:\n" << NEUTRAL;
 	for (std::size_t i = 0; i < this->_v.size(); i++)
 		std::cout << MAGENTA << this->_v[i] << '\n';
 	std::cout << '\n' << NEUTRAL;

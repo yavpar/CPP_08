@@ -41,13 +41,11 @@ class Span
 		void addNumber(int number);
 		int shortestSpan();
 		int largestSpan();
-		void fillSpan();
 		void printSpan() const;
 
         template<typename A>
         void AddMulti(A itF, A itL)
         {
-
             std::size_t k = distance(itF, itL);
 
             std::cout << "k = " << k << " y v.size " << this->_v.size() << '\n';
@@ -99,6 +97,15 @@ class Span
                 virtual const char *what() const throw()
                 {
                     return "Stack Overflow";
+                }
+        };
+
+        class SpanEmpty : public std::exception
+        {
+            public:
+                virtual const char *what() const throw()
+                {
+                    return "Span is empty";
                 }
         };
 
