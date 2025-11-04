@@ -17,7 +17,7 @@ void test_main()
     std::cout << mStack.top() << std::endl;//.back()
     mStack.pop();//.pop_back()
     std::cout <<  mStack.size() << std::endl;
-    mStack.push(2); mStack.push(3); mStack.push(4);//  mStack.push(0);//.push_back()
+    mStack.push(2); mStack.push(3); mStack.push(4);  mStack.push(0);//.push_back()
     MutantStack<int>::iterator it = mStack.begin(); MutantStack<int>::iterator ite = mStack.end();//std::list<int>
     ++it;
     --it;
@@ -32,10 +32,10 @@ void test_list()
     std::list<int> mStack;
     mStack.push_back(0);
     mStack.push_back(1);
-    std::cout << mStack.back() << std::endl;
+    std::cout << "first element: " << mStack.back() << std::endl;
     mStack.pop_back();
-    std::cout << mStack.size() << std::endl;
-    mStack.push_back(2); mStack.push_back(3); mStack.push_back(4); //mStack.push_back(0);
+    std::cout << "pop_back() done!.\nsize: " << mStack.size() << std::endl;
+    mStack.push_back(2); mStack.push_back(3); mStack.push_back(4); mStack.push_back(0);
     std::list<int>::iterator it = mStack.begin(); std::list<int>::iterator ite = mStack.end();
     ++it;
     --it;
